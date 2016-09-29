@@ -25,6 +25,8 @@ call expression (\code{\link{expect_call}}) and/or argument values
 (\code{\link{expect_args}}) match the expected.
 }
 \examples{
+library(testthat)
+
 # expect call expression (signature)
 m <- mock()
 with_mock(summary = m, summary(iris))
