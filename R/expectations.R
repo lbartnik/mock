@@ -12,6 +12,8 @@
 #' @param ... Arguments as passed in a call.
 #'
 #' @examples
+#' library(testthat)
+#' 
 #' # expect call expression (signature)
 #' m <- mock()
 #' with_mock(summary = m, summary(iris))

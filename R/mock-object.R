@@ -82,6 +82,8 @@ NULL
 
 #' @export
 #' @rdname mock
+#' 
+#' @importFrom testthat fail
 mock <- function (..., cycle = FALSE, envir = parent.frame()) {
   stopifnot(is.environment(envir))
 
