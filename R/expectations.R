@@ -1,0 +1,82 @@
+
+#' Expectation: does the given call match the expected?
+#'
+#' Together with \code{\link{mock}} can be used to verify whether the
+#' call expression (\code{\link{expect_call}}) and/or argument values
+#' (\code{\link{expect_args}}) match the expected.
+#'
+#'
+#' @param mock_object A \code{\link{mock}} object.
+#' @param n Call number.
+#' @param expected_call Expected call expression; will be compared unevaluated.
+#' @param ... Arguments as passed in a call.
+#'
+#' @examples
+#' # expect call expression (signature)
+#' m <- mock()
+#' with_mock(summary = m, summary(iris))
+#' expect_call(m, 1, summary(iris))
+#'
+#' # expect argument value
+#' m <- mock()
+#' a <- iris
+#' with_mock(summary = m, summary(object = a))
+#' expect_args(m, 1, object = a)
+#' # is an equivalent to ...
+#' expect_equal(mock_args(m)[[1]], list(object = a))
+#'
+#' @name call-expectations
+#'
+NULL
+
+
+
+#' @export
+#' @rdname call-expectations
+#'
+#' @importFrom testthat expect
+expect_call <- function (mock_object, n, expected_call) {
+  stopifnot(is_mock(mock_object))
+
+  expect(
+    0 < n && n <= length(mock_object),
+    sprintf("call number %s not found in mock object", toString(n))
+  )
+
+  expected_call <- substitute(expected_call)
+  mocked_call <- mock_calls(mock_object)[[n]]
+
+  expect(
+    identical(mocked_call, expected_call),
+    sprintf("expected call %s does not mach actual call %s.",
+            format(expected_call), format(mocked_call))
+  )
+
+  invisible(TRUE)
+}
+
+
+#' @export
+#' @rdname call-expectations
+#'
+#' @importFrom testthat expect expect_equal
+expect_args <- function (mock_object, n, ...)
+{
+  stopifnot(is_mock(mock_object))
+
+  expect(
+    0 < n && n <= length(mock_object),
+    sprintf("arguments list number %s not found in mock object", toString(n))
+  )
+
+  expected_args <- list(...)
+
+  expect_equal(
+    mock_args(mock_object)[[n]],
+    expected_args,
+    info = "expected argument list does not mach actual one."
+  )
+
+  invisible(TRUE)
+}
+

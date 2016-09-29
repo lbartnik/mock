@@ -1,0 +1,17 @@
+Package: mock
+Version: 0.1.0
+Title: Mocking extensions for testthat
+Description: Simplifies mocking functions used with testthat's with_mock.
+Authors@R:
+    person("Lukasz", "Bartnik", , "l.bartnik@gmail.com", c("aut", "cre"))
+URL: https://github.com/lbartnik/mock
+BugReports: https://github.com/lbartnik/mock/issues
+Depends:
+    R (>= 3.1.0)
+Imports:
+    testthat
+License: MIT
+Collate:
+    'expectations.R'
+    'mock-object.R'
+RoxygenNote: 5.0.1
