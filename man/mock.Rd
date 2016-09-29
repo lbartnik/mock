@@ -57,10 +57,12 @@ list of calls made on a mocked function and a respective list of
 values of arguments passed to each of these calls.
 }
 \examples{
+library(testthat)
+
 m <- mock(1)
 with_mock(summary = m, {
   expect_equal(summary(iris), 1)
-  expect_length(m, 1)
+  expect_called(m, 1)
   expect_call(m, 1, summary(iris))
   expect_args(m, 1, iris)
 })

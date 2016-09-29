@@ -5,9 +5,11 @@
 #' call expression (\code{\link{expect_call}}) and/or argument values
 #' (\code{\link{expect_args}}) match the expected.
 #'
+#' With \code{expect_called} you can check how many times has the mock
+#' object been called.
 #'
 #' @param mock_object A \code{\link{mock}} object.
-#' @param n Call number.
+#' @param n Call number or total number of calls.
 #' @param expected_call Expected call expression; will be compared unevaluated.
 #' @param ... Arguments as passed in a call.
 #'
@@ -17,6 +19,11 @@
 #' # expect call expression (signature)
 #' m <- mock()
 #' with_mock(summary = m, summary(iris))
+#' 
+#' # it has been called once
+#' expect_called(m, 1)
+#' 
+#' # the first (and only) call's arguments matche `summary(iris)`
 #' expect_call(m, 1, summary(iris))
 #'
 #' # expect argument value
@@ -82,3 +89,15 @@ expect_args <- function (mock_object, n, ...)
   invisible(TRUE)
 }
 
+
+#' @export
+#' @rdname call-expectations
+expect_called <- function (mock_object, n)
+{
+  stopifnot(is_mock(mock_object))
+  
+  expect(
+    length(mock_object) == n,
+    sprintf("mock object has not been called %s times", toString(n))
+  )
+}
