@@ -2,7 +2,7 @@ Package: mock
 Version: 0.1.0
 Title: Mocking Extensions for Package Testthat
 Description: Simplifies mocking functions used with testthat's with_mock.
-Author: Lukasz A. Bartnik
+Author: Lukasz A. Bartnik <l.bartnik@gmail.com>
 Maintainer: Lukasz A. Bartnik <l.bartnik@gmail.com>
 URL: https://github.com/lbartnik/mock
 BugReports: https://github.com/lbartnik/mock/issues
